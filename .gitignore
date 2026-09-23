@@ -1,0 +1,16 @@
+node_modules/
+dist/
+dist-electron/
+out/
+release/
+*.log
+.DS_Store
+Thumbs.db
+test-out.pdf
+.env
+.env.*
+!.env.example
+*.local
+.vite/
+coverage/
+.turbo/

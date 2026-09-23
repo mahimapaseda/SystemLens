@@ -1,0 +1,32 @@
+{
+  "name": "systemlens",
+  "version": "4.0.0",
+  "description": "PC health check and laptop health monitor for Windows — battery, thermals, disk, CPU, RAM, audio, network, and display diagnostics.",
+  "main": "out/main/index.js",
+  "author": "Mahima Paseda",
+  "license": "MIT",
+  "private": false,
+  "homepage": "https://mahimapaseda.github.io/SystemLens/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mahimapaseda/SystemLens.git"
+  },
+  "keywords": [
+    "pc-health-check",
+    "laptop-health",
+    "windows",
+    "electron",
+    "system-monitor",
+    "battery",
+    "diagnostics"
+  ],
+  "dependencies": {
+    "jspdf": "^4.2.1",
+    "jspdf-autotable": "^5.0.8",
+    "lucide-react": "^0.378.0",
+    "node-cron": "^3.0.3",
+    "recharts": "^3.0.0",
+    "systeminformation": "^5.22.11",
+    "zustand": "^4.5.2"
+  }
+}
