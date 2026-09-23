@@ -3,47 +3,47 @@
    ============================================================ */
 
 :root {
-  --color-bg-primary: #0a1210;
-  --color-bg-secondary: #0e1814;
-  --color-bg-card: rgba(18, 32, 28, 0.72);
-  --color-bg-elevated: rgba(28, 46, 40, 0.85);
-  --color-bg-hover: rgba(36, 58, 50, 0.9);
-  --color-bg-input: rgba(12, 22, 18, 0.85);
+  --color-bg-primary: #070b14;
+  --color-bg-secondary: #0b1220;
+  --color-bg-card: rgba(14, 22, 40, 0.78);
+  --color-bg-elevated: rgba(22, 34, 58, 0.9);
+  --color-bg-hover: rgba(32, 48, 78, 0.92);
+  --color-bg-input: rgba(10, 16, 28, 0.9);
   --card-backdrop: blur(14px);
 
-  --color-accent: #2dd4a8;
-  --color-accent-dim: rgba(45, 212, 168, 0.14);
-  --color-accent-blue: #3db8a0;
-  --color-accent-blue-dim: rgba(61, 184, 160, 0.16);
-  --color-accent-green: #2dd4a8;
-  --color-accent-green-dim: rgba(45, 212, 168, 0.16);
-  --color-accent-amber: #e8a838;
-  --color-accent-amber-dim: rgba(232, 168, 56, 0.16);
-  --color-accent-red: #e85d5d;
-  --color-accent-red-dim: rgba(232, 93, 93, 0.16);
-  --color-accent-purple: #7a9e96;
-  --color-accent-purple-dim: rgba(122, 158, 150, 0.16);
-  --color-accent-cyan: #4ecdc4;
+  --color-accent: #38bdf8;
+  --color-accent-dim: rgba(56, 189, 248, 0.14);
+  --color-accent-blue: #38bdf8;
+  --color-accent-blue-dim: rgba(56, 189, 248, 0.16);
+  --color-accent-green: #34d399;
+  --color-accent-green-dim: rgba(52, 211, 153, 0.16);
+  --color-accent-amber: #fbbf24;
+  --color-accent-amber-dim: rgba(251, 191, 36, 0.16);
+  --color-accent-red: #f87171;
+  --color-accent-red-dim: rgba(248, 113, 113, 0.16);
+  --color-accent-purple: #a78bfa;
+  --color-accent-purple-dim: rgba(167, 139, 250, 0.16);
+  --color-accent-cyan: #22d3ee;
 
-  --color-text-primary: #eef6f2;
-  --color-text-secondary: #9bb5ab;
-  --color-text-muted: #5a7368;
-  --color-text-disabled: #3a4d45;
+  --color-text-primary: #eef4ff;
+  --color-text-secondary: #9db0d0;
+  --color-text-muted: #6b7c9c;
+  --color-text-disabled: #3d4b66;
 
-  --color-border: rgba(45, 212, 168, 0.08);
-  --color-border-bright: rgba(45, 212, 168, 0.18);
+  --color-border: rgba(56, 189, 248, 0.1);
+  --color-border-bright: rgba(56, 189, 248, 0.22);
 
-  --gradient-accent: linear-gradient(135deg, #2dd4a8 0%, #1a9e7a 100%);
-  --gradient-blue: linear-gradient(135deg, #3db8a0 0%, #2dd4a8 100%);
-  --gradient-green: linear-gradient(135deg, #2dd4a8 0%, #4ecdc4 100%);
-  --gradient-amber: linear-gradient(135deg, #e8a838 0%, #e85d5d 100%);
-  --gradient-purple: linear-gradient(135deg, #7a9e96 0%, #4ecdc4 100%);
-  --gradient-red: linear-gradient(135deg, #e85d5d 0%, #e8a838 100%);
-  --gradient-card: linear-gradient(160deg, rgba(45, 212, 168, 0.05) 0%, transparent 55%);
+  --gradient-accent: linear-gradient(135deg, #38bdf8 0%, #2563eb 100%);
+  --gradient-blue: linear-gradient(135deg, #38bdf8 0%, #22d3ee 100%);
+  --gradient-green: linear-gradient(135deg, #34d399 0%, #22d3ee 100%);
+  --gradient-amber: linear-gradient(135deg, #fbbf24 0%, #f87171 100%);
+  --gradient-purple: linear-gradient(135deg, #a78bfa 0%, #38bdf8 100%);
+  --gradient-red: linear-gradient(135deg, #f87171 0%, #fbbf24 100%);
+  --gradient-card: linear-gradient(160deg, rgba(56, 189, 248, 0.06) 0%, transparent 55%);
   --gradient-shell:
-    radial-gradient(ellipse 80% 50% at 10% -10%, rgba(45, 212, 168, 0.12), transparent 50%),
-    radial-gradient(ellipse 60% 40% at 100% 100%, rgba(30, 90, 70, 0.18), transparent 45%),
-    linear-gradient(180deg, #0a1210 0%, #0c1612 100%);
+    radial-gradient(ellipse 80% 50% at 10% -10%, rgba(56, 189, 248, 0.14), transparent 50%),
+    radial-gradient(ellipse 60% 40% at 100% 100%, rgba(37, 99, 235, 0.16), transparent 45%),
+    linear-gradient(180deg, #070b14 0%, #0a1020 100%);
 
   --font-display: 'Outfit', 'Segoe UI', sans-serif;
   --font-family: 'DM Sans', 'Segoe UI', sans-serif;

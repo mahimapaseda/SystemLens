@@ -33,7 +33,7 @@ interface Props {
 
 export default function Sidebar({ activePage, onNavigate }: Props) {
   const groups = [...new Set(NAV_ITEMS.map((i) => i.group))]
-  const [version, setVersion] = useState('3.5.2')
+  const [version, setVersion] = useState('4.2.0')
 
   useEffect(() => {
     window.systemlens?.app?.getVersion?.()
@@ -45,7 +45,7 @@ export default function Sidebar({ activePage, onNavigate }: Props) {
     <aside className="sidebar">
       <div className="sidebar-brand">
         <div className="sidebar-brand-name">SystemLens</div>
-        <div className="sidebar-brand-tag">Laptop health monitor</div>
+        <div className="sidebar-brand-tag">Laptop Health Monitor</div>
       </div>
 
       <nav className="sidebar-nav">

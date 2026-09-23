@@ -7,6 +7,8 @@ interface Props {
   label?: string
   sublabel?: string
   showGrade?: boolean
+  /** When true with showGrade, also show "88 / 100" under the letter */
+  showScoreLine?: boolean
 }
 
 function getGrade(score: number): string {
@@ -31,18 +33,20 @@ export default function ScoreRing({
   strokeWidth = 8,
   label,
   sublabel,
-  showGrade = false
+  showGrade = false,
+  showScoreLine = false
 }: Props) {
   const radius = (size - strokeWidth) / 2
   const circumference = 2 * Math.PI * radius
-  const offset = circumference - (score / 100) * circumference
+  const offset = circumference - (Math.min(100, Math.max(0, score)) / 100) * circumference
   const color = getScoreColor(score)
   const grade = getGrade(score)
+  const gradeSize = Math.round(size * 0.28)
+  const scoreLineSize = Math.round(size * 0.09)
 
   return (
     <div className="score-ring-container" style={{ width: size, height: size }}>
       <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="score-ring-svg">
-        {/* Background track */}
         <circle
           cx={size / 2}
           cy={size / 2}
@@ -51,7 +55,6 @@ export default function ScoreRing({
           stroke="var(--color-bg-elevated)"
           strokeWidth={strokeWidth}
         />
-        {/* Progress arc */}
         <circle
           cx={size / 2}
           cy={size / 2}
@@ -69,9 +72,16 @@ export default function ScoreRing({
 
       <div className="score-ring-inner">
         {showGrade ? (
-          <span className="score-grade" style={{ color }}>{grade}</span>
+          <>
+            <span className="score-grade" style={{ color, fontSize: gradeSize }}>{grade}</span>
+            {showScoreLine && (
+              <span className="score-line" style={{ fontSize: scoreLineSize }}>
+                {Math.round(score)} / 100
+              </span>
+            )}
+          </>
         ) : (
-          <span className="score-number" style={{ color }}>{score}</span>
+          <span className="score-number" style={{ color }}>{Math.round(score)}</span>
         )}
         {label && <span className="score-label">{label}</span>}
         {sublabel && <span className="score-sublabel">{sublabel}</span>}

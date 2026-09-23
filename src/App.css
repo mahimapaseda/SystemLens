@@ -22,7 +22,7 @@
   flex-direction: column;
   min-width: 0;
   background:
-    linear-gradient(90deg, transparent 0%, rgba(45, 212, 168, 0.03) 50%, transparent 100%);
+    linear-gradient(90deg, transparent 0%, rgba(56, 189, 248, 0.03) 50%, transparent 100%);
 }
 
 .page-wrapper {

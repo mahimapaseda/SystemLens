@@ -1,6 +1,6 @@
 {
   "name": "systemlens",
-  "version": "4.1.0",
+  "version": "4.2.0",
   "description": "PC health check and laptop health monitor for Windows — battery, thermals, disk, CPU, RAM, audio, network, and display diagnostics.",
   "main": "out/main/index.js",
   "author": "Mahima Paseda",
