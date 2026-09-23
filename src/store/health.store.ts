@@ -29,6 +29,7 @@ export interface ThermalState {
   sensorAvailable?: boolean
   zones?: { name: string; temp: number }[]
   cpuTempSource?: 'package' | 'ohm' | 'zone' | 'none'
+  gpuTempSource?: 'nvidia' | 'si' | 'ohm' | 'none'
   gpuTempSource?: 'nvidia' | 'si' | 'none'
   systemZoneTemp?: number | null
 }

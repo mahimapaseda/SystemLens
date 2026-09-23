@@ -5,6 +5,7 @@ import { registerIpcHandlers } from './ipc-handlers'
 import { initDatabase } from './database'
 import { setTray } from './tray-state'
 import { startHealthScheduler } from './scheduler'
+import { stopHardwareMonitor } from './collectors/thermal'
 
 let mainWindow: BrowserWindow | null = null
 let tray: Tray | null = null
@@ -122,6 +123,7 @@ if (!gotLock) {
 
 app.on('before-quit', () => {
   isQuitting = true
+  void stopHardwareMonitor()
 })
 
 app.on('window-all-closed', () => {

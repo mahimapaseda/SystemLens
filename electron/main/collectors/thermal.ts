@@ -2,7 +2,7 @@ import si from 'systeminformation'
 import { execPowerShell } from './powershell'
 
 export type CpuTempSource = 'package' | 'ohm' | 'zone' | 'none'
-export type GpuTempSource = 'nvidia' | 'si' | 'none'
+export type GpuTempSource = 'nvidia' | 'si' | 'ohm' | 'none'
 
 export interface HardwareMonitorSensor {
   name: string
@@ -40,7 +40,7 @@ export function isCpuPackageSensorName(name: string): boolean {
   const n = name.toLowerCase()
   if (/motherboard|pch|soc|ambient|hdd|ssd|gpu|nvme|dimm|memory|vr/.test(n)) return false
   return (
-    /cpu package|package|tctl|tdie|cpu \(tctl|cpu die|cpu temperature|core \(tctl/.test(n) ||
+    /cpu package|package|tctl|tdie|cpu \(tctl|cpu die|cpu temperature|core \(tctl|core max|core average/.test(n) ||
     /^cpu$/.test(n.trim()) ||
     /cpu core #?\d+|core #\d+|core temperature/.test(n)
   )
@@ -48,7 +48,7 @@ export function isCpuPackageSensorName(name: string): boolean {
 
 export function isCpuCoreSensorName(name: string): boolean {
   const n = name.toLowerCase()
-  return /core #\d+|core \d+|cpu core #?\d+/.test(n) && !/package|tctl|tdie/.test(n)
+  return /core #\d+|core \d+|cpu core #?\d+/.test(n) && !/package|tctl|tdie|distance|thread|load|clock|max|average/.test(n)
 }
 
 export function isFanSensorName(name: string, type: string): boolean {
@@ -62,6 +62,7 @@ export function pickFromHardwareMonitorSensors(sensors: HardwareMonitorSensor[])
   cpuTemp: number | null
   cpuTempPerCore: number[]
   fanSpeeds: number[]
+  gpuTemp: number | null
   found: boolean
 } {
   const temps = sensors.filter(
@@ -72,7 +73,10 @@ export function pickFromHardwareMonitorSensors(sensors: HardwareMonitorSensor[])
 
   let cpuTemp: number | null = null
   if (packageHits.length > 0) {
-    cpuTemp = Math.max(...packageHits.map((s) => s.value))
+    // Prefer named package / max over average
+    const preferred = packageHits.filter((s) => /package|tctl|tdie|core max/i.test(s.name))
+    const pool = preferred.length > 0 ? preferred : packageHits
+    cpuTemp = Math.max(...pool.map((s) => s.value))
   } else if (coreHits.length > 0) {
     cpuTemp = Math.max(...coreHits.map((s) => s.value))
   }
@@ -85,15 +89,128 @@ export function pickFromHardwareMonitorSensors(sensors: HardwareMonitorSensor[])
     .filter((s) => isFanSensorName(s.name, s.type) && typeof s.value === 'number' && s.value > 100 && s.value < 20000)
     .map((s) => Math.round(s.value))
 
+  const gpuHits = temps.filter((s) => /gpu|hot spot|hotspot/i.test(s.name) && !/cpu/i.test(s.name))
+  const gpuTemp = gpuHits.length > 0 ? Math.max(...gpuHits.map((s) => s.value)) : null
+
   return {
     cpuTemp,
     cpuTempPerCore,
     fanSpeeds,
+    gpuTemp,
     found: cpuTemp != null
   }
 }
 
-async function readHardwareMonitorSensors(): Promise<HardwareMonitorSensor[]> {
+/** Parse `"61.5 (Temperature)"` style values from embedded HardwareReader. */
+export function parseEmbeddedSensorValue(raw: unknown): { value: number | null; type: string } {
+  const text = String(raw ?? '')
+  const m = text.match(/^(.+)\s+\(([^)]+)\)$/)
+  if (!m) return { value: null, type: '' }
+  const type = m[2]
+  if (m[1] === 'N/A') return { value: null, type }
+  const value = parseFloat(m[1])
+  return { value: Number.isFinite(value) ? value : null, type }
+}
+
+export function flattenEmbeddedHardwareData(data: Record<string, any> | null | undefined): HardwareMonitorSensor[] {
+  if (!data || typeof data !== 'object') return []
+  const out: HardwareMonitorSensor[] = []
+  for (const group of Object.values(data)) {
+    if (!Array.isArray(group)) continue
+    for (const device of group) {
+      const sensors = device?.sensors
+      if (!sensors || typeof sensors !== 'object') continue
+      for (const [name, raw] of Object.entries(sensors)) {
+        const { value, type } = parseEmbeddedSensorValue(raw)
+        if (value != null && value > 0) {
+          out.push({ name: String(name), type, value })
+        }
+      }
+    }
+  }
+  return out
+}
+
+type HwMonitorApi = {
+  startReader: (onData: (err: Error | null, data: any) => void, log?: boolean) => Promise<void>
+  sendCommand: (cmd: { type: string; data?: any }) => Promise<void>
+}
+
+let hwApi: HwMonitorApi | null = null
+let hwStartPromise: Promise<boolean> | null = null
+let latestEmbeddedData: Record<string, any> | null = null
+
+function loadHwApi(): HwMonitorApi | null {
+  if (hwApi) return hwApi
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    hwApi = require('@keduoli-q/hardware-monitor') as HwMonitorApi
+    return hwApi
+  } catch {
+    return null
+  }
+}
+
+async function ensureEmbeddedHardwareMonitor(): Promise<boolean> {
+  if (hwStartPromise) return hwStartPromise
+  hwStartPromise = (async () => {
+    const api = loadHwApi()
+    if (!api) return false
+    try {
+      await api.startReader((err, data) => {
+        if (!err && data) latestEmbeddedData = data
+      }, false)
+      await api.sendCommand({
+        type: 'config',
+        data: {
+          intervalMs: 8000,
+          cpu: true,
+          gpu: true,
+          memory: false,
+          motherboard: true,
+          network: false,
+          storage: false
+        }
+      })
+      return true
+    } catch {
+      hwStartPromise = null
+      return false
+    }
+  })()
+  return hwStartPromise
+}
+
+export async function stopHardwareMonitor(): Promise<void> {
+  try {
+    const api = loadHwApi()
+    if (api) await api.sendCommand({ type: 'exit' })
+  } catch {
+    /* ignore */
+  }
+  hwStartPromise = null
+  latestEmbeddedData = null
+}
+
+async function readEmbeddedHardwareMonitorSensors(): Promise<HardwareMonitorSensor[]> {
+  const ok = await ensureEmbeddedHardwareMonitor()
+  if (!ok) return []
+  const api = loadHwApi()
+  if (!api) return []
+  try {
+    latestEmbeddedData = null
+    await api.sendCommand({ type: 'once' })
+    const deadline = Date.now() + 2500
+    while (!latestEmbeddedData && Date.now() < deadline) {
+      await new Promise((r) => setTimeout(r, 100))
+    }
+    return flattenEmbeddedHardwareData(latestEmbeddedData)
+  } catch {
+    return []
+  }
+}
+
+async function readHardwareMonitorWmiSensors(): Promise<HardwareMonitorSensor[]> {
   const ps = await execPowerShell(`
 $nsList = @('root\\LibreHardwareMonitor','root\\OpenHardwareMonitor')
 $out = @()
@@ -205,14 +322,16 @@ $fanList | ConvertTo-Json -Compress
 }
 
 export async function getThermalInfo(): Promise<ThermalInfo> {
-  const [siTemp, hwSensors, gpuResult, zones, winFans] = await Promise.all([
+  const [siTemp, embeddedSensors, wmiSensors, gpuResult, zones, winFans] = await Promise.all([
     si.cpuTemperature(),
-    readHardwareMonitorSensors(),
+    readEmbeddedHardwareMonitorSensors(),
+    readHardwareMonitorWmiSensors(),
     readGpuTempWithSource(),
     readWindowsThermalZones(),
     readWin32FanSpeeds()
   ])
 
+  const hwSensors = embeddedSensors.length > 0 ? embeddedSensors : wmiSensors
   const fromOhm = pickFromHardwareMonitorSensors(hwSensors)
 
   let cpuTemp: number | null = null
@@ -220,7 +339,7 @@ export async function getThermalInfo(): Promise<ThermalInfo> {
   let cpuTempSource: CpuTempSource = 'none'
   let fanSpeeds: number[] = []
 
-  // 1) LibreHardwareMonitor / OpenHardwareMonitor
+  // 1) Embedded LibreHardwareMonitor / WMI LHM/OHM
   if (fromOhm.found) {
     cpuTemp = fromOhm.cpuTemp
     cpuTempPerCore = fromOhm.cpuTempPerCore
@@ -232,22 +351,25 @@ export async function getThermalInfo(): Promise<ThermalInfo> {
   if (cpuTemp == null) {
     const siMain =
       typeof siTemp.main === 'number' && siTemp.main > 0 && siTemp.main < 125 ? siTemp.main : null
+    const siMax =
+      typeof siTemp.max === 'number' && siTemp.max > 0 && siTemp.max < 125 ? siTemp.max : null
     const siCores =
       siTemp.cores && siTemp.cores.length > 0
         ? siTemp.cores.filter((t) => typeof t === 'number' && t > 0 && t < 125).map((t) => Math.round(t * 10) / 10)
         : []
-    if (siMain != null || siCores.length > 0) {
-      cpuTemp = siMain ?? Math.max(...siCores)
+    if (siMain != null || siMax != null || siCores.length > 0) {
+      cpuTemp = siMain ?? siMax ?? Math.max(...siCores)
       cpuTempPerCore = siCores
       cpuTempSource = 'package'
     }
   }
 
-  // 3) ACPI zones — never assign as cpuTemp
+  // 3) ACPI thermal zones — best available without Administrator / package sensors
   const systemZoneTemp =
     zones.length > 0 ? Math.max(...zones.map((z) => z.temp)) : null
 
   if (cpuTemp == null && systemZoneTemp != null) {
+    cpuTemp = systemZoneTemp
     cpuTempSource = 'zone'
   }
 
@@ -255,12 +377,16 @@ export async function getThermalInfo(): Promise<ThermalInfo> {
     fanSpeeds = winFans
   }
 
-  const { temp: gpuTemp, source: gpuTempSource } = gpuResult
+  let { temp: gpuTemp, source: gpuTempSource } = gpuResult
+  if (gpuTemp == null && fromOhm.gpuTemp != null) {
+    gpuTemp = fromOhm.gpuTemp
+    gpuTempSource = 'ohm'
+  }
 
   const scoreCandidates = [
-    cpuTempSource === 'package' || cpuTempSource === 'ohm' ? cpuTemp : null,
-    cpuTempSource === 'zone' ? systemZoneTemp : null,
+    cpuTemp,
     gpuTemp,
+    systemZoneTemp,
     ...cpuTempPerCore
   ].filter((t): t is number => typeof t === 'number' && t > 0)
 
@@ -269,7 +395,11 @@ export async function getThermalInfo(): Promise<ThermalInfo> {
 
   const reliableCpu = cpuTempSource === 'package' || cpuTempSource === 'ohm'
   const isThrottling: boolean | null =
-    reliableCpu && cpuTemp != null ? cpuTemp > 90 : null
+    reliableCpu && cpuTemp != null
+      ? cpuTemp > 90
+      : cpuTempSource === 'zone' && cpuTemp != null
+        ? cpuTemp > 95
+        : null
 
   let thermalScore = 70
   if (maxTemp != null) {

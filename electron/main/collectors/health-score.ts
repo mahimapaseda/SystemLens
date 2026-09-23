@@ -80,28 +80,18 @@ export function getOverallHealthScore(data: AllModuleData): OverallHealthScore {
     }
   }
 
-  if (thermal.cpuTempSource === 'none' || thermal.cpuTempSource === 'zone') {
+  if (thermal.cpuTempSource === 'none' && !thermal.sensorAvailable) {
     recommendations.push(
-      'CPU package temperature is unavailable. Install LibreHardwareMonitor (with its WMI/server enabled) for accurate CPU temps.'
+      'No thermal sensors were found. Run SystemLens as Administrator for package-level CPU temperatures.'
     )
   }
 
   if (!thermal.sensorAvailable) {
     recommendations.push('Thermal sensors are limited on this system. GPU/zone readings are used when available.')
-  } else if (
-    (thermal.cpuTempSource === 'package' || thermal.cpuTempSource === 'ohm') &&
-    thermal.cpuTemp != null &&
-    thermal.cpuTemp > 90
-  ) {
+  } else if (thermal.cpuTemp != null && thermal.cpuTemp > 90) {
     recommendations.push('CPU temperature is dangerously high. Clean cooling vents and check thermal paste.')
-  } else if (
-    (thermal.cpuTempSource === 'package' || thermal.cpuTempSource === 'ohm') &&
-    thermal.cpuTemp != null &&
-    thermal.cpuTemp > 80
-  ) {
+  } else if (thermal.cpuTemp != null && thermal.cpuTemp > 80) {
     recommendations.push('System is running hot. Ensure good airflow and consider a cooling pad.')
-  } else if (thermal.cpuTempSource === 'zone' && thermal.systemZoneTemp != null && thermal.systemZoneTemp > 90) {
-    recommendations.push('System thermal zones are very hot. Ensure good airflow (values may not be CPU package).')
   }
 
   if (thermal.isThrottling === true) {

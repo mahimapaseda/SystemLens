@@ -9,14 +9,14 @@ SystemLens is an open-source desktop app that runs a local PC health check on Wi
 - Product name: SystemLens
 - Category: PC health check / laptop health monitor / Windows system diagnostics
 - Platform: Windows x64 (Electron desktop app)
-- Version: 4.0.1
+- Version: 4.1.0
 - License: MIT
 - Price: Free
 - Author: Mahima Paseda
 - Website: https://mahimapaseda.github.io/SystemLens/
 - Source: https://github.com/mahimapaseda/SystemLens
 - Downloads: https://github.com/mahimapaseda/SystemLens/releases
-- Installer: SystemLens Setup 4.0.1.exe (NSIS)
+- Installer: SystemLens Setup 4.1.0.exe (NSIS)
 
 ## What it checks
 

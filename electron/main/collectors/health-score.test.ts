@@ -224,11 +224,11 @@ describe('getOverallHealthScore', () => {
     expect(score.cpuTempSource).toBe('package')
   })
 
-  it('does not treat ACPI zone heat as CPU package alert', () => {
+  it('alerts on hot ACPI zone when used as CPU thermal', () => {
     const score = getOverallHealthScore(
       allModules({
         thermal: {
-          cpuTemp: null,
+          cpuTemp: 95,
           maxTemp: 95,
           systemZoneTemp: 95,
           thermalScore: 5,
@@ -238,8 +238,8 @@ describe('getOverallHealthScore', () => {
         }
       })
     )
-    expect(score.recommendations.some((r) => /LibreHardwareMonitor/i.test(r))).toBe(true)
-    expect(score.recommendations.some((r) => /CPU temperature is dangerously high/i.test(r))).toBe(false)
+    expect(score.recommendations.some((r) => /LibreHardwareMonitor/i.test(r))).toBe(false)
+    expect(score.recommendations.some((r) => /CPU temperature is dangerously high/i.test(r))).toBe(true)
   })
 
   it('recommends on bad disk', () => {

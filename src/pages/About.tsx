@@ -9,7 +9,7 @@ const RELEASES_URL = 'https://github.com/mahimapaseda/SystemLens/releases'
 const REPO_URL = 'https://github.com/mahimapaseda/SystemLens'
 
 export default function About() {
-  const [version, setVersion] = useState('4.0.1')
+  const [version, setVersion] = useState('4.1.0')
 
   useEffect(() => {
     lc?.app?.getVersion?.()

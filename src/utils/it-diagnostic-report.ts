@@ -137,7 +137,7 @@ function buildActions(findings: { area: string; status: Severity; detail: string
     if (f.area === 'Battery') {
       actions.push('Run powercfg /batteryreport and plan battery replacement if wear is under 60%.')
     } else if (f.area === 'Thermal') {
-      actions.push('Clear vents, verify fans, compare package temp in LibreHardwareMonitor if available.')
+      actions.push('Clear vents, verify fans, and re-check temperatures after cooling.')
     } else if (f.area === 'Storage') {
       actions.push('Check Get-PhysicalDisk health, free disk space, and back up if status is Caution/Bad.')
     } else if (f.area === 'CPU / RAM') {

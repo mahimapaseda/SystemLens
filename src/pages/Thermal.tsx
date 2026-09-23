@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useHealthStore } from '../store/health.store'
 import ScoreRing from '../components/shared/ScoreRing'
-import { Thermometer, Wind, AlertTriangle, Info } from 'lucide-react'
+import { Thermometer, Wind, AlertTriangle } from 'lucide-react'
 import './ModulePage.css'
 
 const lc = window.systemlens
@@ -19,10 +19,6 @@ function formatTemp(temp: number | null | undefined): string {
   return `${temp.toFixed(1)}°C`
 }
 
-function hasReliableCpu(source: string | undefined): boolean {
-  return source === 'package' || source === 'ohm'
-}
-
 export default function Thermal() {
   const { thermal, setThermal } = useHealthStore()
 
@@ -37,21 +33,19 @@ export default function Thermal() {
   }, [])
 
   const t = thermal
-  const reliableCpu = hasReliableCpu(t?.cpuTempSource)
   const hasCores = (t?.cpuTempPerCore?.length ?? 0) > 0
   const hasZones = (t?.zones?.length ?? 0) > 0
-  const weakSensors = !reliableCpu
+  const hasCpu = t?.cpuTemp != null
 
-  const cpuLabel = reliableCpu ? 'CPU Temp' : t?.cpuTempSource === 'zone' ? 'System zone' : 'CPU Temp'
-  const cpuDisplay = reliableCpu
-    ? t?.cpuTemp
-    : t?.cpuTempSource === 'zone'
-    ? t?.systemZoneTemp ?? null
-    : null
+  const cpuLabel =
+    t?.cpuTempSource === 'zone' ? 'CPU / System' : 'CPU Temp'
 
-  const subtitle = reliableCpu
-    ? 'CPU package and GPU temperatures'
-    : 'Limited sensors — install LibreHardwareMonitor for package CPU temps'
+  const subtitle =
+    t?.cpuTempSource === 'package' || t?.cpuTempSource === 'ohm'
+      ? 'CPU package and GPU temperatures'
+      : t?.cpuTempSource === 'zone'
+        ? 'System thermal sensors and GPU temperatures'
+        : 'Temperature monitoring'
 
   const throttleLabel =
     t?.isThrottling === true ? 'Yes' : t?.isThrottling === false ? 'No' : 'Unknown'
@@ -78,8 +72,8 @@ export default function Thermal() {
           <div className="stat-grid">
             <div className="stat-item">
               <span className="stat-label">{cpuLabel}</span>
-              <span className="stat-value" style={{ color: getTempColor(cpuDisplay) }}>
-                {formatTemp(cpuDisplay)}
+              <span className="stat-value" style={{ color: getTempColor(t?.cpuTemp) }}>
+                {formatTemp(t?.cpuTemp)}
               </span>
             </div>
             <div className="stat-item">
@@ -102,14 +96,14 @@ export default function Thermal() {
         </div>
       </div>
 
-      {weakSensors && (
+      {!hasCpu && !t?.gpuTemp && (
         <div className="card warning-card">
-          <Info size={18} color="var(--color-accent-amber)" />
+          <AlertTriangle size={18} color="var(--color-accent-amber)" />
           <div>
-            <p className="warning-title">CPU package temperature unavailable</p>
+            <p className="warning-title">No temperature sensors found</p>
             <p className="warning-desc">
-              Windows ACPI zones are not the CPU die. Install LibreHardwareMonitor and enable its
-              remote/WMI access for accurate package CPU temps. Showing system zones and GPU when present.
+              This system did not report CPU, GPU, or ACPI thermal readings. Try running SystemLens
+              as Administrator for package-level CPU sensors.
             </p>
           </div>
         </div>

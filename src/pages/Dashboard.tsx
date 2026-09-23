@@ -166,29 +166,21 @@ export default function Dashboard() {
         <ModuleCard icon={Battery}     label="Battery Health" score={battery?.healthScore ?? 0}   value={battery?.healthPercent != null ? battery.healthPercent.toFixed(1) : 'N/A'} unit={battery?.healthPercent != null ? '%' : ''} color="var(--color-accent-green)"  />
         <ModuleCard
           icon={Thermometer}
-          label={
-            thermal?.cpuTempSource === 'package' || thermal?.cpuTempSource === 'ohm'
-              ? 'CPU Temp'
-              : thermal?.cpuTempSource === 'zone'
-              ? 'System zone'
-              : 'Thermal'
-          }
+          label="CPU Temp"
           score={thermal?.thermalScore ?? 0}
           value={
-            thermal?.cpuTempSource === 'package' || thermal?.cpuTempSource === 'ohm'
-              ? (thermal?.cpuTemp != null ? thermal.cpuTemp.toFixed(1) : 'N/A')
-              : thermal?.cpuTempSource === 'zone'
-              ? (thermal?.systemZoneTemp != null ? thermal.systemZoneTemp.toFixed(1) : 'N/A')
-              : (thermal?.gpuTemp != null ? thermal.gpuTemp.toFixed(1) : 'N/A')
+            thermal?.cpuTemp != null
+              ? thermal.cpuTemp.toFixed(1)
+              : thermal?.gpuTemp != null
+                ? thermal.gpuTemp.toFixed(1)
+                : 'N/A'
           }
           unit={
-            (thermal?.cpuTempSource === 'package' || thermal?.cpuTempSource === 'ohm') && thermal?.cpuTemp != null
-              ? '°C'
-              : thermal?.cpuTempSource === 'zone' && thermal?.systemZoneTemp != null
+            thermal?.cpuTemp != null
               ? '°C'
               : thermal?.gpuTemp != null
-              ? '°C GPU'
-              : ''
+                ? '°C GPU'
+                : ''
           }
           color="var(--color-accent-amber)"
         />

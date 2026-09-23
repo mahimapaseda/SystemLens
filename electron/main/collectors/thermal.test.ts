@@ -3,7 +3,9 @@ import {
   isCpuPackageSensorName,
   isCpuCoreSensorName,
   pickFromHardwareMonitorSensors,
-  scoreFromTemp
+  scoreFromTemp,
+  parseEmbeddedSensorValue,
+  flattenEmbeddedHardwareData
 } from './thermal'
 
 describe('thermal sensor helpers', () => {
@@ -34,6 +36,16 @@ describe('thermal sensor helpers', () => {
     expect(result.cpuTemp).toBe(72.4)
     expect(result.cpuTempPerCore).toEqual([68, 70])
     expect(result.fanSpeeds).toEqual([2400])
+    expect(result.gpuTemp).toBe(55)
+  })
+
+  it('parses embedded HardwareReader sensor strings', () => {
+    expect(parseEmbeddedSensorValue('72.4 (Temperature)')).toEqual({ value: 72.4, type: 'Temperature' })
+    expect(parseEmbeddedSensorValue('N/A (Temperature)').value).toBeNull()
+    const flat = flattenEmbeddedHardwareData({
+      Cpu: [{ model: 'Test', sensors: { 'CPU Package': '68.2 (Temperature)', 'CPU Core #1': 'N/A (Temperature)' } }]
+    })
+    expect(flat).toEqual([{ name: 'CPU Package', type: 'Temperature', value: 68.2 }])
   })
 
   it('falls back to max core when no package sensor', () => {

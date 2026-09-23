@@ -4,7 +4,7 @@
 
 # SystemLens
 
-[![Version](https://img.shields.io/badge/version-4.0.1-2dd4a8)](https://github.com/mahimapaseda/SystemLens/releases)
+[![Version](https://img.shields.io/badge/version-4.1.0-2dd4a8)](https://github.com/mahimapaseda/SystemLens/releases)
 [![Platform](https://img.shields.io/badge/platform-Windows%20x64-22d3a5)](https://github.com/mahimapaseda/SystemLens/releases)
 [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 [![Website](https://img.shields.io/badge/website-PC%20health%20check-0d9488)](https://mahimapaseda.github.io/SystemLens/)
@@ -46,7 +46,7 @@
 ## Install
 
 1. Open the [latest release](https://github.com/mahimapaseda/SystemLens/releases)
-2. Download **SystemLens Setup 4.0.1.exe**
+2. Download **SystemLens Setup 4.1.0.exe**
 3. Run the NSIS installer (Windows x64)
 
 Closing the window fully exits SystemLens.
