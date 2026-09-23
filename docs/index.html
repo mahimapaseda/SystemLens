@@ -4,28 +4,25 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SystemLens — Free PC Health Check for Windows</title>
-  <meta name="description" content="SystemLens is a free Windows PC health check and laptop health monitor. Check battery, thermals, disk, CPU, RAM, audio, network, and display — with a clear health score and exportable reports." />
-  <meta name="keywords" content="PC health check, laptop health monitor, Windows system diagnostics, battery health, thermal monitor, disk health, CPU RAM monitor" />
-  <meta name="author" content="Mahima Paseda" />
+  <meta name="description" content="Free Windows PC health check. Monitor battery, heat, storage, CPU, and more — then download the installer." />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://mahimapaseda.github.io/SystemLens/" />
 
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://mahimapaseda.github.io/SystemLens/" />
   <meta property="og:title" content="SystemLens — Free PC Health Check for Windows" />
-  <meta property="og:description" content="Run a full PC health check on Windows: battery, thermals, storage, CPU, RAM, audio, network, and display — with scores and PDF/CSV/JSON reports." />
+  <meta property="og:description" content="Free Windows PC health check with scores and exportable reports." />
   <meta property="og:image" content="https://mahimapaseda.github.io/SystemLens/screenshots/dashboard.png" />
-  <meta property="og:site_name" content="SystemLens" />
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="SystemLens — Free PC Health Check for Windows" />
-  <meta name="twitter:description" content="Windows laptop and PC health monitor with seven diagnostic modules and exportable reports." />
+  <meta name="twitter:description" content="Free Windows PC health check with scores and exportable reports." />
   <meta name="twitter:image" content="https://mahimapaseda.github.io/SystemLens/screenshots/dashboard.png" />
 
   <link rel="icon" type="image/png" href="branding/logo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet" />
 
   <script type="application/ld+json">
   {
@@ -34,130 +31,37 @@
     "name": "SystemLens",
     "applicationCategory": "UtilitiesApplication",
     "operatingSystem": "Windows",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    },
-    "description": "Free PC health check and laptop health monitor for Windows. Monitors battery, thermals, disk, CPU, RAM, audio, network, and display with an overall health score and exportable reports.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "description": "Free PC health check for Windows.",
     "url": "https://mahimapaseda.github.io/SystemLens/",
     "downloadUrl": "https://github.com/mahimapaseda/SystemLens/releases/latest/download/SystemLens-Setup-Windows.exe",
     "softwareVersion": "4.2.0",
     "license": "https://opensource.org/licenses/MIT",
-    "author": {
-      "@type": "Person",
-      "name": "Mahima Paseda"
-    },
-    "image": "https://mahimapaseda.github.io/SystemLens/screenshots/dashboard.png"
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How do I run a PC health check on Windows with SystemLens?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Download SystemLens-Setup-Windows.exe from the SystemLens website or GitHub Releases, install it on Windows x64, and open the app. The dashboard shows an overall health score plus seven diagnostic modules: Battery, Thermal, Storage, CPU & RAM, Audio, Network, and Display."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Does SystemLens check laptop battery and temperature?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes. The Battery module reports charge and health-related metrics. The Thermal module tracks temperature-related readings so you can spot heat issues during a PC health check."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Is SystemLens free and open source?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes. SystemLens is free to use and released under the MIT license. Source code is on GitHub at mahimapaseda/SystemLens."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Does SystemLens send my PC data to the cloud?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "No. Diagnostics run locally on your Windows machine. You can export history snapshots as JSON, CSV, or PDF from the Reports view when you choose to."
-        }
-      }
-    ]
+    "author": { "@type": "Person", "name": "Mahima Paseda" }
   }
   </script>
 
   <style>
     :root {
-      --bg-deep: #061018;
-      --bg-mid: #0a1f2a;
+      --bg: #061018;
       --teal: #2dd4a8;
-      --teal-dim: #0d9488;
-      --teal-glow: rgba(45, 212, 168, 0.22);
       --text: #e8f4f0;
       --muted: #8aa8a0;
       --line: rgba(45, 212, 168, 0.18);
-      --font-display: "Outfit", sans-serif;
-      --font-body: "DM Sans", sans-serif;
+      --display: "Outfit", sans-serif;
+      --body: "DM Sans", sans-serif;
     }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html { scroll-behavior: smooth; }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: var(--font-body);
+      font-family: var(--body);
       color: var(--text);
-      background: var(--bg-deep);
-      line-height: 1.55;
-      -webkit-font-smoothing: antialiased;
+      background: var(--bg);
+      min-height: 100vh;
+      min-height: 100dvh;
     }
-
     a { color: var(--teal); text-decoration: none; }
     a:hover { text-decoration: underline; }
 
-    .nav {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 10;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1.25rem 6vw;
-    }
-
-    .nav-brand {
-      display: flex;
-      align-items: center;
-      gap: 0.65rem;
-      color: var(--text);
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: 1.05rem;
-      text-decoration: none;
-    }
-
-    .nav-brand img { width: 36px; height: 36px; border-radius: 8px; }
-    .nav-brand:hover { text-decoration: none; }
-
-    .nav-links {
-      display: flex;
-      gap: 1.5rem;
-      font-size: 0.9rem;
-      color: var(--muted);
-    }
-
-    .nav-links a { color: var(--muted); }
-    .nav-links a:hover { color: var(--text); text-decoration: none; }
-
-    /* Hero: one composition, full-bleed visual plane */
     .hero {
       position: relative;
       min-height: 100vh;
@@ -168,485 +72,192 @@
       overflow: hidden;
       isolation: isolate;
     }
-
     .hero-bg {
       position: absolute;
       inset: 0;
       z-index: -2;
       background:
         linear-gradient(160deg, #041018 0%, #0a2430 42%, #063028 100%),
-        radial-gradient(ellipse 80% 60% at 70% 40%, var(--teal-glow), transparent 55%);
+        radial-gradient(ellipse 80% 60% at 70% 40%, rgba(45, 212, 168, 0.22), transparent 55%);
     }
-
     .hero-visual {
       position: absolute;
       inset: 0;
       z-index: -1;
     }
-
     .hero-visual img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       object-position: center top;
-      opacity: 0.42;
-      filter: saturate(1.05) contrast(1.05);
+      opacity: 0.4;
+      animation: ken 18s ease-in-out infinite alternate;
     }
-
     .hero-visual::after {
       content: "";
       position: absolute;
       inset: 0;
       background: linear-gradient(
         to top,
-        var(--bg-deep) 8%,
-        rgba(6, 16, 24, 0.72) 38%,
-        rgba(6, 16, 24, 0.35) 65%,
-        rgba(6, 16, 24, 0.55) 100%
+        var(--bg) 10%,
+        rgba(6, 16, 24, 0.7) 40%,
+        rgba(6, 16, 24, 0.4) 100%
       );
     }
+    .nav {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 6vw;
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      color: var(--text);
+      font-family: var(--display);
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .nav-brand img { width: 34px; height: 34px; border-radius: 8px; }
+    .nav-brand:hover { text-decoration: none; }
+    .nav a.git {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    .nav a.git:hover { color: var(--text); text-decoration: none; }
 
-    .hero-content {
+    .content {
       padding: 0 6vw 12vh;
       max-width: 720px;
-      animation: rise 0.9s ease-out both;
+      animation: rise 0.85s ease-out both;
     }
-
-    .brand-hero {
-      font-family: var(--font-display);
+    .brand {
+      font-family: var(--display);
       font-weight: 800;
-      font-size: clamp(2.75rem, 8vw, 4.75rem);
+      font-size: clamp(2.75rem, 8vw, 4.5rem);
       letter-spacing: -0.03em;
       line-height: 1.05;
-      color: var(--text);
-      margin-bottom: 0.85rem;
-    }
-
-    .brand-hero span {
-      color: var(--teal);
-    }
-
-    .hero h1 {
-      font-family: var(--font-display);
-      font-weight: 600;
-      font-size: clamp(1.15rem, 2.6vw, 1.55rem);
-      letter-spacing: -0.01em;
-      color: var(--text);
       margin-bottom: 0.75rem;
+    }
+    .brand span { color: var(--teal); }
+    h1 {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: clamp(1.15rem, 2.5vw, 1.5rem);
+      margin-bottom: 0.7rem;
       max-width: 28ch;
     }
-
-    .hero-lead {
+    .lead {
       color: var(--muted);
       font-size: 1.05rem;
-      max-width: 38ch;
-      margin-bottom: 1.75rem;
+      max-width: 36ch;
+      margin-bottom: 1.6rem;
     }
-
-    .cta-row {
+    .cta {
       display: flex;
       flex-wrap: wrap;
       gap: 0.85rem;
-      align-items: center;
     }
-
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-family: var(--font-display);
+      font-family: var(--display);
       font-weight: 600;
       font-size: 0.95rem;
-      padding: 0.85rem 1.45rem;
+      padding: 0.85rem 1.4rem;
       border-radius: 10px;
-      border: none;
-      cursor: pointer;
       text-decoration: none;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      transition: transform 0.2s ease, background 0.2s ease;
     }
-
     .btn:hover { text-decoration: none; transform: translateY(-1px); }
-
     .btn-primary {
       background: var(--teal);
       color: #042018;
-      box-shadow: 0 8px 28px var(--teal-glow);
+      box-shadow: 0 8px 28px rgba(45, 212, 168, 0.22);
     }
-
-    .btn-primary:hover {
-      background: #5eead4;
-      color: #042018;
-    }
-
+    .btn-primary:hover { background: #5eead4; color: #042018; }
     .btn-ghost {
       background: transparent;
       color: var(--text);
       border: 1px solid var(--line);
     }
-
-    .btn-ghost:hover {
-      border-color: var(--teal);
-      color: var(--teal);
-    }
-
-    section {
-      padding: 5.5rem 6vw;
-      border-top: 1px solid var(--line);
-    }
-
-    .section-inner { max-width: 1100px; margin: 0 auto; }
-
-    .section-label {
-      font-family: var(--font-display);
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--teal-dim);
-      margin-bottom: 0.65rem;
-    }
-
-    h2 {
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: clamp(1.6rem, 3.5vw, 2.15rem);
-      letter-spacing: -0.02em;
-      margin-bottom: 0.65rem;
-    }
-
-    .section-lead {
-      color: var(--muted);
-      max-width: 48ch;
-      margin-bottom: 2.5rem;
-    }
-
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 2rem 1.75rem;
-    }
-
-    .feature h3 {
-      font-family: var(--font-display);
-      font-weight: 600;
-      font-size: 1.05rem;
-      margin-bottom: 0.4rem;
-      color: var(--text);
-    }
-
-    .feature p { color: var(--muted); font-size: 0.95rem; }
-
-    .how-steps {
-      display: grid;
-      gap: 1.5rem;
-      counter-reset: step;
-    }
-
-    .how-steps li {
-      list-style: none;
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 1rem;
-      align-items: start;
-      animation: fade-in 0.6s ease both;
-    }
-
-    .how-steps li:nth-child(2) { animation-delay: 0.1s; }
-    .how-steps li:nth-child(3) { animation-delay: 0.2s; }
-
-    .how-steps li::before {
-      counter-increment: step;
-      content: counter(step);
-      font-family: var(--font-display);
-      font-weight: 700;
-      color: var(--bg-deep);
-      background: var(--teal);
-      width: 2rem;
-      height: 2rem;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.9rem;
-    }
-
-    .how-steps strong {
-      display: block;
-      font-family: var(--font-display);
-      font-weight: 600;
-      margin-bottom: 0.25rem;
-    }
-
-    .how-steps p { color: var(--muted); font-size: 0.95rem; }
-
-    .faq-list { display: grid; gap: 1rem; max-width: 720px; }
-
-    details {
-      border-bottom: 1px solid var(--line);
-      padding: 1rem 0;
-    }
-
-    summary {
-      font-family: var(--font-display);
-      font-weight: 600;
-      cursor: pointer;
-      list-style: none;
-      display: flex;
-      justify-content: space-between;
-      gap: 1rem;
-      align-items: center;
-    }
-
-    summary::-webkit-details-marker { display: none; }
-
-    summary::after {
-      content: "+";
-      color: var(--teal);
-      font-size: 1.25rem;
-      font-weight: 500;
-    }
-
-    details[open] summary::after { content: "–"; }
-
-    details p {
-      color: var(--muted);
-      margin-top: 0.75rem;
-      font-size: 0.95rem;
-      padding-right: 2rem;
-    }
-
-    .download {
-      text-align: center;
-      background:
-        radial-gradient(ellipse 60% 80% at 50% 100%, var(--teal-glow), transparent 60%),
-        var(--bg-mid);
-    }
-
-    .download .section-lead {
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .download .cta-row { justify-content: center; }
+    .btn-ghost:hover { border-color: var(--teal); color: var(--teal); }
 
     footer {
-      padding: 2rem 6vw 2.5rem;
-      border-top: 1px solid var(--line);
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 1rem 6vw 1.25rem;
       display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
       justify-content: space-between;
-      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
       color: var(--muted);
-      font-size: 0.85rem;
+      font-size: 0.8rem;
+      border-top: 1px solid transparent;
     }
-
     footer a { color: var(--muted); }
     footer a:hover { color: var(--teal); }
 
     @keyframes rise {
-      from { opacity: 0; transform: translateY(28px); }
+      from { opacity: 0; transform: translateY(24px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
-    @keyframes fade-in {
-      from { opacity: 0; transform: translateY(12px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .hero-visual img {
-      animation: ken 18s ease-in-out infinite alternate;
-    }
-
     @keyframes ken {
       from { transform: scale(1); }
-      to { transform: scale(1.06); }
+      to { transform: scale(1.05); }
     }
-
     @media (max-width: 720px) {
-      .nav-links { display: none; }
-      .hero-content { padding-bottom: 8vh; }
-      .brand-hero { font-size: clamp(2.4rem, 12vw, 3.25rem); }
+      .content { padding-bottom: 9vh; }
+      .brand { font-size: clamp(2.4rem, 12vw, 3.2rem); }
     }
-
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation: none !important;
-        transition: none !important;
-      }
-      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation: none !important; transition: none !important; }
     }
   </style>
 </head>
 <body>
-  <nav class="nav" aria-label="Primary">
-    <a class="nav-brand" href="#">
-      <img src="branding/logo.png" alt="" width="36" height="36" />
-      SystemLens
-    </a>
-    <div class="nav-links">
-      <a href="#features">Features</a>
-      <a href="#how">How it works</a>
-      <a href="#faq">FAQ</a>
-      <a href="https://github.com/mahimapaseda/SystemLens">GitHub</a>
-    </div>
-  </nav>
-
-  <header class="hero">
+  <main class="hero">
     <div class="hero-bg" aria-hidden="true"></div>
     <div class="hero-visual">
       <img
         src="screenshots/dashboard.png"
-        alt="SystemLens dashboard showing overall PC health score and diagnostic modules"
+        alt="SystemLens PC health check dashboard"
         width="1600"
         height="900"
       />
     </div>
-    <div class="hero-content">
-      <p class="brand-hero">System<span>Lens</span></p>
-      <h1>PC health check for Windows laptops and desktops</h1>
-      <p class="hero-lead">
-        See battery, heat, storage, and performance in one score — then export a report when you need it.
-      </p>
-      <div class="cta-row">
-        <a class="btn btn-primary" href="https://github.com/mahimapaseda/SystemLens/releases/latest/download/SystemLens-Setup-Windows.exe" download>
-          Download for Windows
-        </a>
+
+    <nav class="nav" aria-label="Primary">
+      <a class="nav-brand" href="#">
+        <img src="branding/logo.png" alt="" width="34" height="34" />
+        SystemLens
+      </a>
+      <a class="git" href="https://github.com/mahimapaseda/SystemLens">GitHub</a>
+    </nav>
+
+    <div class="content">
+      <p class="brand">System<span>Lens</span></p>
+      <h1>PC health check for Windows</h1>
+      <p class="lead">See battery, heat, storage, and performance in one score — then export a report when you need it.</p>
+      <div class="cta">
+        <a
+          class="btn btn-primary"
+          href="https://github.com/mahimapaseda/SystemLens/releases/latest/download/SystemLens-Setup-Windows.exe"
+          download
+        >Download for Windows</a>
         <a class="btn btn-ghost" href="https://github.com/mahimapaseda/SystemLens">View source</a>
       </div>
     </div>
-  </header>
 
-  <section id="features" aria-labelledby="features-heading">
-    <div class="section-inner">
-      <p class="section-label">Diagnostics</p>
-      <h2 id="features-heading">Seven modules, one health score</h2>
-      <p class="section-lead">
-        SystemLens runs a local PC health check across the systems that matter most on Windows.
-      </p>
-      <div class="feature-grid">
-        <article class="feature">
-          <h3>Overall health score</h3>
-          <p>Letter grade and recommendations so you know what to fix first.</p>
-        </article>
-        <article class="feature">
-          <h3>Battery &amp; thermal</h3>
-          <p>Charge health and temperature readings for everyday laptop care.</p>
-        </article>
-        <article class="feature">
-          <h3>Storage, CPU &amp; RAM</h3>
-          <p>Disk space and live processor/memory load without opening Task Manager.</p>
-        </article>
-        <article class="feature">
-          <h3>Audio, network &amp; display</h3>
-          <p>Quick checks for the peripherals and connectivity you use daily.</p>
-        </article>
-        <article class="feature">
-          <h3>History &amp; reports</h3>
-          <p>Save snapshots and export JSON, CSV, or PDF for IT or personal records.</p>
-        </article>
-        <article class="feature">
-          <h3>Runs locally</h3>
-          <p>Windows-native collectors via systeminformation and PowerShell/WMI.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section id="how" aria-labelledby="how-heading">
-    <div class="section-inner">
-      <p class="section-label">Get started</p>
-      <h2 id="how-heading">How a SystemLens PC health check works</h2>
-      <p class="section-lead">Install once, open the dashboard, and review modules at your pace.</p>
-      <ol class="how-steps">
-        <li>
-          <div>
-            <strong>Install the Windows app</strong>
-            <p>Download the Windows installer and run it on Windows x64.</p>
-          </div>
-        </li>
-        <li>
-          <div>
-            <strong>Open the health dashboard</strong>
-            <p>Read your overall score, then drill into Battery, Thermal, Storage, and more.</p>
-          </div>
-        </li>
-        <li>
-          <div>
-            <strong>Export if you need a report</strong>
-            <p>Save history snapshots and export JSON, CSV, or PDF from Reports.</p>
-          </div>
-        </li>
-      </ol>
-    </div>
-  </section>
-
-  <section id="faq" aria-labelledby="faq-heading">
-    <div class="section-inner">
-      <p class="section-label">FAQ</p>
-      <h2 id="faq-heading">Common questions</h2>
-      <p class="section-lead">Straight answers for search and support.</p>
-      <div class="faq-list">
-        <details open>
-          <summary>How do I run a PC health check on Windows with SystemLens?</summary>
-          <p>
-            Download
-            <a href="https://github.com/mahimapaseda/SystemLens/releases/latest/download/SystemLens-Setup-Windows.exe">SystemLens-Setup-Windows.exe</a>,
-            install on Windows x64, and open the app. The dashboard shows an overall health score
-            plus seven diagnostic modules.
-          </p>
-        </details>
-        <details>
-          <summary>Does SystemLens check laptop battery and temperature?</summary>
-          <p>
-            Yes. The Battery module reports charge and health-related metrics. The Thermal module
-            tracks temperature-related readings so you can spot heat issues.
-          </p>
-        </details>
-        <details>
-          <summary>Is SystemLens free and open source?</summary>
-          <p>
-            Yes. SystemLens is free to use and released under the MIT license.
-            Source code lives at
-            <a href="https://github.com/mahimapaseda/SystemLens">mahimapaseda/SystemLens</a>.
-          </p>
-        </details>
-        <details>
-          <summary>Does SystemLens send my PC data to the cloud?</summary>
-          <p>
-            No. Diagnostics run locally on your Windows machine. You export history snapshots as
-            JSON, CSV, or PDF only when you choose to.
-          </p>
-        </details>
-      </div>
-    </div>
-  </section>
-
-  <section class="download" id="download" aria-labelledby="download-heading">
-    <div class="section-inner">
-      <p class="section-label">Download</p>
-      <h2 id="download-heading">Start your PC health check</h2>
-      <p class="section-lead">
-        Free Windows x64 installer. MIT licensed. Built for real hardware diagnostics.
-      </p>
-      <div class="cta-row">
-        <a class="btn btn-primary" href="https://github.com/mahimapaseda/SystemLens/releases/latest/download/SystemLens-Setup-Windows.exe" download>
-          Get SystemLens 4.2.0
-        </a>
-        <a class="btn btn-ghost" href="llms.txt">llms.txt for AI</a>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <p>© SystemLens · MIT License · <a href="https://github.com/mahimapaseda/SystemLens">GitHub</a></p>
-    <p>
-      <a href="sitemap.xml">Sitemap</a>
-      ·
-      <a href="robots.txt">Robots</a>
-      ·
-      <a href="llms.txt">llms.txt</a>
-    </p>
-  </footer>
+    <footer>
+      <p>© SystemLens · MIT · <a href="https://mahimapaseda.vercel.app/">Mahima Paseda</a></p>
+      <p><a href="https://github.com/mahimapaseda/SystemLens/releases">Releases</a></p>
+    </footer>
+  </main>
 </body>
 </html>

@@ -1,58 +1,21 @@
 # SystemLens
 
-> Free PC health check and laptop health monitor for Windows.
+> Free PC health check for Windows.
 
-SystemLens is an open-source desktop app that runs a local PC health check on Windows x64. It shows an overall health score and seven diagnostic modules: Battery, Thermal, Storage, CPU & RAM, Audio, Network, and Display. History snapshots can be exported as JSON, CSV, or PDF. Diagnostics run on-device; data is not sent to the cloud by default.
+SystemLens is an open-source Windows desktop app for local PC and laptop health checks. It shows an overall health score across battery, thermals, storage, CPU/RAM, audio, network, and display. Reports can be exported as JSON, CSV, or PDF.
 
 ## Key facts
 
-- Product name: SystemLens
-- Category: PC health check / laptop health monitor / Windows system diagnostics
-- Platform: Windows x64 (Electron desktop app)
+- Platform: Windows x64
 - Version: 4.2.0
 - License: MIT
 - Price: Free
 - Author: Mahima Paseda
 - Website: https://mahimapaseda.github.io/SystemLens/
+- Download: https://github.com/mahimapaseda/SystemLens/releases/latest/download/SystemLens-Setup-Windows.exe
 - Source: https://github.com/mahimapaseda/SystemLens
-- Downloads: https://github.com/mahimapaseda/SystemLens/releases/latest/download/SystemLens-Setup-Windows.exe
-- Installer: SystemLens-Setup-Windows.exe (NSIS, Windows x64)
+- Portfolio: https://mahimapaseda.vercel.app/
 
-## What it checks
+## Notes
 
-1. Overall health score with letter grade and recommendations
-2. Battery — charge and health-related metrics
-3. Thermal — temperature-related readings
-4. Storage — disk space and storage diagnostics
-5. CPU & RAM — processor and memory load
-6. Audio — audio device checks
-7. Network — connectivity-related diagnostics
-8. Display — display-related diagnostics
-
-## How to run a PC health check
-
-1. Open https://github.com/mahimapaseda/SystemLens/releases/latest/download/SystemLens-Setup-Windows.exe
-2. Download SystemLens-Setup-Windows.exe for Windows x64
-3. Install and launch SystemLens
-4. Review the dashboard health score and individual modules
-5. Optionally save snapshots and export JSON, CSV, or PDF from Reports
-
-## FAQ for citations
-
-Q: How do I run a PC health check on Windows with SystemLens?
-A: Download the installer from GitHub Releases, install on Windows x64, and open the app. The dashboard shows an overall health score plus seven diagnostic modules.
-
-Q: Does SystemLens check laptop battery and temperature?
-A: Yes. Battery and Thermal modules report charge/health-related metrics and temperature-related readings.
-
-Q: Is SystemLens free and open source?
-A: Yes. Free to use under the MIT license. Source: https://github.com/mahimapaseda/SystemLens
-
-Q: Does SystemLens send PC data to the cloud?
-A: No. Diagnostics run locally. Exports are user-initiated (JSON, CSV, PDF).
-
-## Related links
-
-- Landing page: https://mahimapaseda.github.io/SystemLens/
-- Sitemap: https://mahimapaseda.github.io/SystemLens/sitemap.xml
-- README: https://github.com/mahimapaseda/SystemLens#readme
+Diagnostics run locally. For die-level CPU package temperatures on some Intel laptops, run as Administrator.
