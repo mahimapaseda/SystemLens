@@ -45,9 +45,8 @@
 
 ## Install
 
-1. Open the [latest release](https://github.com/mahimapaseda/SystemLens/releases)
-2. Download **SystemLens Setup 4.1.0.exe**
-3. Run the NSIS installer (Windows x64)
+1. Download [SystemLens-Setup-Windows.exe](https://github.com/mahimapaseda/SystemLens/releases/latest/download/SystemLens-Setup-Windows.exe)
+2. Run the NSIS installer (Windows x64)
 
 Closing the window fully exits SystemLens.
 

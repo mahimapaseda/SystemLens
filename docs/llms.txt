@@ -15,8 +15,8 @@ SystemLens is an open-source desktop app that runs a local PC health check on Wi
 - Author: Mahima Paseda
 - Website: https://mahimapaseda.github.io/SystemLens/
 - Source: https://github.com/mahimapaseda/SystemLens
-- Downloads: https://github.com/mahimapaseda/SystemLens/releases
-- Installer: SystemLens Setup 4.1.0.exe (NSIS)
+- Downloads: https://github.com/mahimapaseda/SystemLens/releases/latest/download/SystemLens-Setup-Windows.exe
+- Installer: SystemLens-Setup-Windows.exe (NSIS, Windows x64)
 
 ## What it checks
 
@@ -31,8 +31,8 @@ SystemLens is an open-source desktop app that runs a local PC health check on Wi
 
 ## How to run a PC health check
 
-1. Open https://github.com/mahimapaseda/SystemLens/releases
-2. Download SystemLens Setup for Windows x64
+1. Open https://github.com/mahimapaseda/SystemLens/releases/latest/download/SystemLens-Setup-Windows.exe
+2. Download SystemLens-Setup-Windows.exe for Windows x64
 3. Install and launch SystemLens
 4. Review the dashboard health score and individual modules
 5. Optionally save snapshots and export JSON, CSV, or PDF from Reports
