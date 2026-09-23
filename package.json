@@ -1,6 +1,6 @@
 {
   "name": "systemlens",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "PC health check and laptop health monitor for Windows — battery, thermals, disk, CPU, RAM, audio, network, and display diagnostics.",
   "main": "out/main/index.js",
   "author": "Mahima Paseda",
@@ -20,6 +20,15 @@
     "battery",
     "diagnostics"
   ],
+  "scripts": {
+    "dev": "electron-vite dev",
+    "build": "electron-vite build",
+    "preview": "electron-vite preview",
+    "package": "electron-builder --win",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint src electron --ext .ts,.tsx"
+  },
   "dependencies": {
     "jspdf": "^4.2.1",
     "jspdf-autotable": "^5.0.8",
@@ -28,5 +37,63 @@
     "recharts": "^3.0.0",
     "systeminformation": "^5.22.11",
     "zustand": "^4.5.2"
+  },
+  "devDependencies": {
+    "@electron-toolkit/eslint-config-ts": "^2.0.0",
+    "@electron-toolkit/preload": "^3.0.0",
+    "@electron-toolkit/tsconfig": "^1.0.1",
+    "@electron-toolkit/utils": "^3.0.0",
+    "@types/node": "^20.12.7",
+    "@types/node-cron": "^3.0.11",
+    "@types/react": "^18.3.1",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "electron": "^30.0.1",
+    "electron-builder": "^24.13.3",
+    "electron-vite": "^2.1.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "typescript": "^5.4.5",
+    "vite": "^5.2.11",
+    "vitest": "^2.1.9"
+  },
+  "build": {
+    "appId": "com.systemlens.app",
+    "productName": "SystemLens",
+    "directories": {
+      "buildResources": "assets",
+      "output": "release"
+    },
+    "files": [
+      "out/**/*",
+      "assets/**/*",
+      "package.json"
+    ],
+    "icon": "assets/icons/icon.png",
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "assets/icons/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "assets/icons/icon.ico",
+      "installerHeaderIcon": "assets/icons/icon.ico",
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "SystemLens"
+    },
+    "publish": {
+      "provider": "github",
+      "owner": "mahimapaseda",
+      "repo": "SystemLens"
+    }
   }
 }

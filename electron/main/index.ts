@@ -69,7 +69,7 @@ function createTray(): void {
     { label: 'Open SystemLens', click: () => showMainWindow() },
     {
       label: 'Check for updates…',
-      click: () => shell.openExternal('https://github.com/mahimapaseda/LapCharm/releases')
+      click: () => shell.openExternal('https://github.com/mahimapaseda/SystemLens/releases')
     },
     { type: 'separator' },
     {

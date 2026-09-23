@@ -5,11 +5,11 @@ import './ModulePage.css'
 import './About.css'
 
 const lc = window.systemlens
-const RELEASES_URL = 'https://github.com/mahimapaseda/LapCharm/releases'
-const REPO_URL = 'https://github.com/mahimapaseda/LapCharm'
+const RELEASES_URL = 'https://github.com/mahimapaseda/SystemLens/releases'
+const REPO_URL = 'https://github.com/mahimapaseda/SystemLens'
 
 export default function About() {
-  const [version, setVersion] = useState('3.5.2')
+  const [version, setVersion] = useState('4.0.1')
 
   useEffect(() => {
     lc?.app?.getVersion?.()
