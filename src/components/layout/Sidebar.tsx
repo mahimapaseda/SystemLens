@@ -33,7 +33,7 @@ interface Props {
 
 export default function Sidebar({ activePage, onNavigate }: Props) {
   const groups = [...new Set(NAV_ITEMS.map((i) => i.group))]
-  const [version, setVersion] = useState('4.2.0')
+  const [version, setVersion] = useState('4.3.0')
 
   useEffect(() => {
     window.systemlens?.app?.getVersion?.()

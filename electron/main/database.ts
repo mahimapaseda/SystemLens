@@ -30,6 +30,7 @@ const SNAPSHOT_MIN_INTERVAL_MS = 5 * 60 * 1000 // 5 minutes
 const SNAPSHOT_SCORE_DELTA = 3
 
 let dbPath: string
+let setupPath: string
 let cache: DbSchema | null = null
 let lastSavedAt = 0
 let lastSavedOverall: number | null = null
@@ -61,9 +62,30 @@ export function initDatabase(): void {
   const dbDir = join(app.getPath('userData'), 'systemlens')
   mkdirSync(dbDir, { recursive: true })
   dbPath = join(dbDir, 'health.json')
+  setupPath = join(dbDir, 'setup.json')
   // Pre-load cache
   getDb()
   console.log(`[SystemLens DB] Initialized at ${dbPath}`)
+}
+
+/** True when this Windows profile has not finished the first PC diagnosis. */
+export function isFirstDiagnosis(): boolean {
+  if (!setupPath || !existsSync(setupPath)) return true
+  try {
+    const data = JSON.parse(readFileSync(setupPath, 'utf8')) as { diagnosed?: boolean }
+    return data.diagnosed !== true
+  } catch {
+    return true
+  }
+}
+
+export function markDiagnosisComplete(): void {
+  if (!setupPath) return
+  writeFileSync(
+    setupPath,
+    JSON.stringify({ diagnosed: true, diagnosedAt: new Date().toISOString() }, null, 2),
+    'utf8'
+  )
 }
 
 function shouldSaveSnapshot(overall: number): boolean {

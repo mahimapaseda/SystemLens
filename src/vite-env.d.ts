@@ -16,6 +16,11 @@ interface SystemLensAPI {
   app: {
     getVersion: () => Promise<string>
   }
+  setup: {
+    status: () => Promise<SystemLensResult<{ needsDiagnosis: boolean }>>
+    diagnose: () => Promise<SystemLensResult<import('./store/health.store').HealthScoreState>>
+    onProgress: (callback: (progress: { step: string; label: string; done: boolean }) => void) => () => void
+  }
   shell: {
     openExternal: (url: string) => Promise<void>
   }

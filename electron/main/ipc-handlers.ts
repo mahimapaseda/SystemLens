@@ -6,11 +6,26 @@ import { getCpuRamInfo } from './collectors/cpu-ram'
 import { getAudioInfo } from './collectors/audio'
 import { getNetworkInfo } from './collectors/network'
 import { getDisplayInfo } from './collectors/display'
-import { getHistoryData } from './database'
-import { cached, TTL, computeAndPersistHealthScore } from './health-service'
+import { getHistoryData, isFirstDiagnosis } from './database'
+import { cached, TTL, computeAndPersistHealthScore, runFirstDiagnosis } from './health-service'
 import { runSpeedTest } from './collectors/speed-test'
 
 export function registerIpcHandlers(ipcMain: IpcMain): void {
+
+  ipcMain.handle('setup:status', () => {
+    return { success: true, data: { needsDiagnosis: isFirstDiagnosis() } }
+  })
+
+  ipcMain.handle('setup:diagnose', async (event) => {
+    try {
+      const data = await runFirstDiagnosis((progress) => {
+        event.sender.send('setup:progress', progress)
+      })
+      return { success: true, data }
+    } catch (e) {
+      return { success: false, error: String(e) }
+    }
+  })
 
   ipcMain.handle('battery:get', async () => {
     try {

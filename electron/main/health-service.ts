@@ -6,7 +6,7 @@ import { getAudioInfo } from './collectors/audio'
 import { getNetworkInfo } from './collectors/network'
 import { getDisplayInfo } from './collectors/display'
 import { getOverallHealthScore, type OverallHealthScore } from './collectors/health-score'
-import { saveSnapshot } from './database'
+import { markDiagnosisComplete, saveSnapshot } from './database'
 import { getCached, setCached } from './data-cache'
 import { updateTrayHealthTooltip } from './tray-state'
 import { maybeNotifyHealthAlerts } from './notifications'
@@ -53,4 +53,53 @@ export async function computeAndPersistHealthScore(): Promise<OverallHealthScore
   updateTrayHealthTooltip(data.overall, data.grade)
   maybeNotifyHealthAlerts(data)
   return data
+}
+
+export interface DiagnosisProgress {
+  step: string
+  label: string
+  done: boolean
+}
+
+const DIAGNOSIS_STEPS: { step: string; label: string; run: () => Promise<unknown> }[] = [
+  { step: 'battery', label: 'Battery', run: getBatteryInfo },
+  { step: 'thermal', label: 'Thermal', run: getThermalInfo },
+  { step: 'disk', label: 'Storage', run: getDiskInfo },
+  { step: 'cpuram', label: 'CPU & RAM', run: getCpuRamInfo },
+  { step: 'network', label: 'Network', run: getNetworkInfo },
+  { step: 'audio', label: 'Audio', run: getAudioInfo },
+  { step: 'display', label: 'Display', run: getDisplayInfo }
+]
+
+/**
+ * First launch only: scan modules one by one, cache results, save the first snapshot.
+ */
+export async function runFirstDiagnosis(
+  onStep: (progress: DiagnosisProgress) => void
+): Promise<OverallHealthScore> {
+  const collected: Record<string, unknown> = {}
+
+  for (const step of DIAGNOSIS_STEPS) {
+    onStep({ step: step.step, label: step.label, done: false })
+    const data = await step.run()
+    setCached(step.step, data)
+    collected[step.step] = data
+    onStep({ step: step.step, label: step.label, done: true })
+  }
+
+  const score = getOverallHealthScore({
+    battery: collected.battery,
+    thermal: collected.thermal,
+    disk: collected.disk,
+    cpuram: collected.cpuram,
+    network: collected.network,
+    audio: collected.audio,
+    display: collected.display
+  } as Parameters<typeof getOverallHealthScore>[0])
+
+  setCached('score', score)
+  saveSnapshot(score)
+  updateTrayHealthTooltip(score.overall, score.grade)
+  markDiagnosisComplete()
+  return score
 }

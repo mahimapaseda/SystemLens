@@ -11,6 +11,18 @@ contextBridge.exposeInMainWorld('systemlens', {
     getVersion: () => ipcRenderer.invoke('app:getVersion')
   },
 
+  setup: {
+    status: () => ipcRenderer.invoke('setup:status'),
+    diagnose: () => ipcRenderer.invoke('setup:diagnose'),
+    onProgress: (callback: (progress: { step: string; label: string; done: boolean }) => void) => {
+      const listener = (_event: unknown, progress: { step: string; label: string; done: boolean }) => {
+        callback(progress)
+      }
+      ipcRenderer.on('setup:progress', listener)
+      return () => ipcRenderer.removeListener('setup:progress', listener)
+    }
+  },
+
   shell: {
     openExternal: (url: string) => ipcRenderer.invoke('shell:openExternal', url)
   },

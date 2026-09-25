@@ -4,7 +4,7 @@
 
 # SystemLens
 
-[![Version](https://img.shields.io/badge/version-4.2.0-2dd4a8)](https://github.com/mahimapaseda/SystemLens/releases)
+[![Version](https://img.shields.io/badge/version-4.3.0-2dd4a8)](https://github.com/mahimapaseda/SystemLens/releases)
 [![Platform](https://img.shields.io/badge/platform-Windows%20x64-22d3a5)](https://github.com/mahimapaseda/SystemLens/releases)
 [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 [![Website](https://img.shields.io/badge/website-PC%20health%20check-0d9488)](https://mahimapaseda.github.io/SystemLens/)

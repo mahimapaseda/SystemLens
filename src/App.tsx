@@ -11,6 +11,7 @@ import Network from './pages/Network'
 import Display from './pages/Display'
 import Reports from './pages/Reports'
 import About from './pages/About'
+import FirstDiagnosis from './pages/FirstDiagnosis'
 import './App.css'
 
 export type Page =
@@ -27,6 +28,7 @@ export type Page =
 
 export default function App() {
   const [activePage, setActivePage] = useState<Page>('dashboard')
+  const [needsDiagnosis, setNeedsDiagnosis] = useState<boolean | null>(null)
   const [theme, setTheme] = useState<'dark' | 'light'>(() => {
     return (localStorage.getItem('systemlens-theme') as 'dark' | 'light') || 'dark'
   })
@@ -35,6 +37,12 @@ export default function App() {
     document.documentElement.setAttribute('data-theme', theme)
     localStorage.setItem('systemlens-theme', theme)
   }, [theme])
+
+  useEffect(() => {
+    window.systemlens?.setup?.status?.()
+      .then((res) => setNeedsDiagnosis(res?.success ? res.data.needsDiagnosis : false))
+      .catch(() => setNeedsDiagnosis(false))
+  }, [])
 
   const toggleTheme = () => {
     setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'))
@@ -54,6 +62,14 @@ export default function App() {
       case 'about':     return <About />
       default:          return <Dashboard />
     }
+  }
+
+  if (needsDiagnosis === null) {
+    return <div className="app-shell" />
+  }
+
+  if (needsDiagnosis) {
+    return <FirstDiagnosis onOpen={() => setNeedsDiagnosis(false)} />
   }
 
   return (
